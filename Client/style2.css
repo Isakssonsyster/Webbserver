@@ -1,0 +1,11 @@
+body{
+    background-color: wheat;
+}
+
+img{
+    height: 300px;
+    width: 250px;
+    position: relative;
+    left: 500px;
+    top: 100px;
+}
