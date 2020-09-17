@@ -24,8 +24,6 @@ kittySchema.methods.speak = function () {
       : "I don't have a name";
     console.log(greeting);
   }
-  
-  const Kitten = mongoose.model('Kitten', kittySchema);
 
   const fluffy = new Kitten({ name: 'fluffy' });
 fluffy.speak();
