@@ -1,37 +1,39 @@
 const mongoose = require('mongoose');
-const db = mangoose.connection;
+
 
 mongoose.connect('mongodb://localhost/test', {useNewUrlParser: true});
+
+const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
 
 }); 
 
-const kittySchema = new mongoose.Schema({
+const personSchema = new mongoose.Schema({
 
-    name: String
-
-});
-
-const Kitten = mongoose.model('Kitten', kittySchema);
-
-const silence = new Kitten({ name: 'Silence' });
-console.log(silence.name);
-
-kittySchema.methods.speak = function () {
-    const greeting = this.name
-      ? "Meow name is " + this.name
-      : "I don't have a name";
-    console.log(greeting);
-  }
-
-  const fluffy = new Kitten({ name: 'fluffy' });
-fluffy.speak();
+    name: String,
+    email: String
+   });
 
 
-Kitten.find(function (err, kittens) {
-    if (err) return console.error(err);
-    console.log(kittens);
-  })
+personSchema.methods.speak = (parans) => {
 
-  Kitten.find({ name: /^fluff/ }, callback);
+  console.log("Hej");
+  const presentation = this.name ? `My name is ${this.name},` : `We are watching you!`;
+  //I java hade det varit if(this name!="")
+  console.log(presentation);
+}
+
+const Person = mongoose.model('Person', personSchema);
+
+const Niklas = new Person ({ name: 'Niklas', age: 33});
+Niklas.save()
+
+const Mojje = new Person ({ name: 'Mojje', age: 19});
+Mojje.save()
+
+const Dora = new Person ({ name: 'Dora', age: 18});
+Dora.save()
+
+const Pablo = new Person ({ name: 'Pablo', age: 18});
+Pablo.save()
