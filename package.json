@@ -1,0 +1,22 @@
+{
+  "name": "client",
+  "version": "1.0.0",
+  "description": "a website",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.10.5",
+    "nodemon": "^2.0.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "devStart": "nodemon app.js"
+  },
+  "keywords": [],
+  "author": "isabella",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "webbserver"
+  }
+}
