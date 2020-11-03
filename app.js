@@ -2,31 +2,27 @@ const mongoose = require('mongoose');
 const express = require('express')
 const mongoDBTEST = require('./mongoDBTEST')
 const dBModule = require('./dBModule')
+const messageModule = require('./messageModule')
 const app = express()
 const http = require('http')
 const port = 3000
 
 const clientDir = __dirname + "\\Client\\"
 
-mongoose.connect('mongodb://localhost/workshop', { useNewUrlParser: true });
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+app.use(express.static(clientDir))
 
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function () {
-
+app.get('/', (req, res) => {
+  res.render(clientDir + "index.ejs")
 });
 
-app.use(express.json())
-app.use(express.urlencoded())
-
-app.get('/', (req, res) => res.sendFile(clientDir + "index.html" ))
-app.get('/style', (req, res) => res.sendFile(clientDir + "style2.css" ))
-app.get('/bild1', (req, res) => res.sendFile(clientDir + "209891099-288-k515713.jpg" ))
+app.get('/feedbackForum', async(req, res) => {
+  var messages = await messageModule.getMessages()
+  res.render(clientDir + "feedbackForum.ejs", {message: messages})
+});
 
 app.post('/', (req, res) => {
-
-  console.log(req.body.name)
-  console.log(req.body.email)
 
   var Person = mongoDBTEST.createFeedback(req.body.name, req.body.feedback);
   dBModule.saveInput(Person)
@@ -34,7 +30,13 @@ app.post('/', (req, res) => {
     res.redirect('/') 
 })
 
+app.post('/feedbackForum', async(req, res) => {
+  var message = messageModule.createMessage(req.body.name, req.body.text)
+  dBModule.saveInput(message)
 
+  var messages = await messageModule.getMessages()
+  res.render(clientDir + "feedbackForum.ejs", {message: messages})
+});
 
 
 app.listen(port, () => console.log(`Example app listening on port port ${port}!`))

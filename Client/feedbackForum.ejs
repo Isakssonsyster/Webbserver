@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Hello</h1>
+    <form action="/feedbackForum" method="POST">
+        <label for="name">name</label> <br>
+        <input type="name" name="name"> <br>
+        <label for="text">input</label> <br>
+        <input type="text" name="text"> <br>
+        <input type="submit" value="button">
+    </form>
+    <br>
+    <br>
+    <% for( let i = 0; i < message.length; i++ ) { %>
+        <h1> <%- message[i].name %> </h1>
+        <p> <%- message[i].text %> </p>
+    <% } %>
+</body>
+</html>
